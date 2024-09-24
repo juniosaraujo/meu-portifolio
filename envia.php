@@ -1,23 +1,39 @@
-<? php
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Captura e sanitiza os dados do formulário
+    $nome = htmlspecialchars(trim($_POST['nome']));
+    $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
+    $telefone = htmlspecialchars(trim($_POST['telefone']));
+    $mensagem = htmlspecialchars(trim($_POST['mensagem']));
 
-    $nome = addslashes($_POST['nome']);
-    $email = addslashes($_POST['email']);
-    $telefone = addslashes($_POST['telefone']);
-    $mensagem = addslashes($_POST['mensagem']);
+    // Verifica se todos os campos estão preenchidos corretamente
+    if ($nome && $email && $telefone && $mensagem) {
+        // Destinatário
+        $para = 'junio.araujo085@gmail.com';
 
-    $para = "junio.araujo085@gmail.com";
-    $assunto = "Contato Portifólio"
+        // Assunto do e-mail
+        $assunto = 'Contato do Formulário de Portfólio';
 
-    $corpo = "Nome: ".$nome."\n"."E-mail: ".$email."\n"."Telefone: ".$telefone."\n"."Mensagem: ".$mensagem;
+        // Corpo do e-mail
+        $corpo = "Nome: $nome\n";
+        $corpo .= "E-mail: $email\n";
+        $corpo .= "Telefone: $telefone\n";
+        $corpo .= "Mensagem:\n$mensagem";
 
-    $cabeca = "From: juniosa7@gmail.com". "\n"."Replay-to: ".$email."\n"."X=Master:PHP/".version();
+        // Cabeçalhos do e-mail
+        $cabecalhos = "From: $email\r\n";
+        $cabecalhos .= "Reply-To: $email\r\n";
+        $cabecalhos .= "X-Mailer: PHP/" . phpversion();
 
-    if (mail($para,$assunto,$corpo,$cabeca)){
-        echo("e-mail enviado com sucesso!");
-    }else{
-        echo("Houve um erro ao enviar o email");
-
+        // Envia o e-mail
+        if (mail($para, $assunto, $corpo, $cabecalhos)) {
+            echo "E-mail enviado com sucesso!";
+        } else {
+            echo "Erro ao enviar o e-mail.";
+        }
+    } else {
+        echo "Por favor, preencha todos os campos corretamente.";
     }
-   
-    
+}
 ?>
+

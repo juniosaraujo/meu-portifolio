@@ -183,14 +183,14 @@
         <section class="formulario">
             <div class="interface">
                 <h2 class="titulo">FALA <span>COMIGO.</span></h2>
-                <form action="">
-                    <input type="text" placeholder="Seu nome completo" required>
-                    <input type="text" placeholder="Seu e-mail" required>
-                    <input type="text" placeholder="Seu telefone">
-                    <textarea name="" id="" placeholder="Como posso te ajudar?" required></textarea>
+                <form method="post"  action="./envia.php">
+                    <input type="text" id = "nome" name = "nome" placeholder="Seu nome completo" required>
+                    <input type="text" id = "email" name = "email" placeholder="Seu e-mail" required>
+                    <input type="text" id = "telefone" name = "telefone" placeholder="Seu telefone">
+                    <textarea id = "mensagem" name = "mensagem" placeholder="Como posso te ajudar?" required></textarea>
                     <div class="btn-enviar"><input type="submit" value="ENVIAR"></div>
                 </form>
-
+                
             </div>
         </section>
     </main>
